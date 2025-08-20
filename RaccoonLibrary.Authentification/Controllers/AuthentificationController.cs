@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using RaccoonLibrary.Authentification.Domain.DTO;
 using RaccoonLibrary.Authentification.Domain.Contracts;
+
+using RaccoonLibrary.Authentification.Domain.DTO;
 
 namespace RaccoonLibrary.Authentification.Controllers
 {
