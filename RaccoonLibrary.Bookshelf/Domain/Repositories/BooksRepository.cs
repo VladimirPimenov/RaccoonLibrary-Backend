@@ -1,8 +1,8 @@
 ﻿using RaccoonLibrary.Bookshelf.Domain.Entities;
 
-namespace RaccoonLibrary.Bookshelf.Domain.Contracts
+namespace RaccoonLibrary.Bookshelf.Domain.Repositories
 {
-	public interface IReaderBooksService
+	public interface BooksRepository
 	{
 		public Task<List<Book>> GetReaderBooksAsync(int readerId);
 	}

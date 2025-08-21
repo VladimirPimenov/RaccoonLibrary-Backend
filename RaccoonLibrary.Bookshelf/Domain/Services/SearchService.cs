@@ -1,7 +1,10 @@
-﻿using RaccoonLibrary.Bookshelf.Domain.Contracts;
-using RaccoonLibrary.Bookshelf.Domain.Entities;
+﻿using RaccoonLibrary.Bookshelf.Domain.Entities;
+using RaccoonLibrary.Bookshelf.Domain.DTO;
+using RaccoonLibrary.Bookshelf.Domain.Mappers;
+
 using RaccoonLibrary.Bookshelf.Domain.Repositories;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+using RaccoonLibrary.Bookshelf.Domain.Contracts;
 
 namespace RaccoonLibrary.Bookshelf.Domain.Services
 {
@@ -9,7 +12,7 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 		ISearchRepository searchRepository)
 		: ISearchService
 	{
-		public async Task<List<Book>> FindBooksByQueryAsync(string query)
+		public async Task<List<BookDto>> FindBooksByQueryAsync(string query)
 		{
 			var searchPattern = $"%{query.ToLower()}%";
 
@@ -20,7 +23,9 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 									.Distinct()
 									.ToList();
 
-			return foundedBooks;
+			var bookDTOs = BookMapper.ConvertEntitiesToDtoList(foundedBooks);
+
+			return bookDTOs;
 		}
 
 		public async Task<List<Author>> FindAuthorsAsync(string lastName)
