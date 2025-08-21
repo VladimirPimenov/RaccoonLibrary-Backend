@@ -19,10 +19,10 @@ builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
 });
 
 builder.Services.AddScoped<ISearchRepository, SearchRepository>();
-builder.Services.AddScoped<IReaderBooksRepository, ReaderBooksRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddScoped<ISearchService, SearchService>();
-builder.Services.AddScoped<IReaderBooksService, ReaderBooksService>();
+builder.Services.AddScoped<IBookQueryService, BookQueryService>();
 
 var app = builder.Build();
 

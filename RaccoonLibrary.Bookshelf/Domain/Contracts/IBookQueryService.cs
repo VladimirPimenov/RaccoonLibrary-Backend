@@ -1,9 +1,9 @@
-﻿using RaccoonLibrary.Bookshelf.Domain.DTO;
+﻿using RaccoonLibrary.Bookshelf.Domain.Entities;
 
 namespace RaccoonLibrary.Bookshelf.Domain.Contracts
 {
 	public interface IBookQueryService
 	{
-		public Task<List<BookDto>> GetReaderBooksAsync(int readerId);
+		public Task<Book> GetBook(int bookId);
 	}
 }

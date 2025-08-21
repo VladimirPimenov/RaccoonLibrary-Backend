@@ -2,8 +2,8 @@
 
 namespace RaccoonLibrary.Bookshelf.Domain.Repositories
 {
-	public interface BooksRepository
+	public interface IBookRepository
 	{
-		public Task<List<Book>> GetReaderBooksAsync(int readerId);
+		public Task<Book> GetBookById(int id);
 	}
 }

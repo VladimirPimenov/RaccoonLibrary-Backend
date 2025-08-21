@@ -5,18 +5,16 @@ using RaccoonLibrary.Bookshelf.Domain.Contracts;
 
 namespace RaccoonLibrary.Bookshelf.Controllers
 {
-	[Route("/books")]
+	[Route("/book")]
 	[ApiController]
-	public class ReaderBooksController(
-		IReaderBooksService booksService) 
+	public class BookController(
+		IBookQueryService bookService) 
 		: ControllerBase
 	{
 		[HttpGet]
-		public async Task<IActionResult> GetReaderBooksAsync(int readerId)
+		public async Task<IActionResult> GetBook(int bookId)
 		{
-			var books = await booksService.GetReaderBooksAsync(readerId);
-
-			return Ok(books);
+			throw new NotImplementedException();
 		}
 	}
 }
