@@ -18,10 +18,10 @@ builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL:DefaultConnection"));
 });
 
-builder.Services.AddScoped<IBookSearchRepository, BookSearchRepository>();
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IReaderBooksRepository, ReaderBooksRepository>();
 
-builder.Services.AddScoped<IBookSearchService, BookSearchService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IReaderBooksService, ReaderBooksService>();
 
 var app = builder.Build();

@@ -8,6 +8,7 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository
 	{
 		public DbSet<Book> Book { get; set; }
 		public DbSet<ReaderBook> ReaderBook { get; set; }
+		public DbSet<Author> Author { get; set; }
 
 		public PostgreSqlDbContext(DbContextOptions<PostgreSqlDbContext> options)
 			: base(options) { }

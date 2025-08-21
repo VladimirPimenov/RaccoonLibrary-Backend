@@ -5,17 +5,27 @@ using RaccoonLibrary.Bookshelf.Domain.Repositories;
 
 namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementation
 {
-	public class BookSearchRepository(
+	public class SearchRepository(
 		PostgreSqlDbContext context)
-		: IBookSearchRepository
+		: ISearchRepository
 	{
+		public async Task<List<Author>> FindAuthorByLastName(string lastName)
+		{
+			return await context.Author
+							.Where(author =>
+								EF.Functions.Like(
+									author.LastName.ToLower(),
+									lastName)
+							)
+							.ToListAsync();
+		}
+
 		public async Task<List<Book>> FindBooksByAuthorAsync(string authorLastName)
 		{
 			return await context.Book
 							.Include(book => book.Category)
 							.Include(book => book.Genre)
 							.Include(book => book.Author)
-							.Include(book => book.Publisher)
 							.Where(book =>
 								EF.Functions.Like(
 									book.Author.LastName.ToLower(),
@@ -30,26 +40,10 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementatio
 							.Include(book => book.Category)
 							.Include(book => book.Genre)
 							.Include(book => book.Author)
-							.Include(book => book.Publisher)
 							.Where(book =>
 								EF.Functions.Like(
 									book.Genre.Name.ToLower(),
 									genreName)
-								)
-							.ToListAsync();
-		}
-
-		public async Task<List<Book>> FindBooksByPublisherAsync(string publisherName)
-		{
-			return await context.Book
-							.Include(book => book.Category)
-							.Include(book => book.Genre)
-							.Include(book => book.Author)
-							.Include(book => book.Publisher)
-							.Where(book =>
-								EF.Functions.Like(
-									book.Publisher.Name.ToLower(),
-									publisherName)
 								)
 							.ToListAsync();
 		}
@@ -60,7 +54,6 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementatio
 							.Include(book => book.Category)
 							.Include(book => book.Genre)
 							.Include(book => book.Author)
-							.Include(book => book.Publisher)
 							.Where(book => 
 								EF.Functions.Like(
 									book.Title.ToLower(),
