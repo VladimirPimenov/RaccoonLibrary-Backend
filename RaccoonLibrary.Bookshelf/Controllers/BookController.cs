@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using RaccoonLibrary.Bookshelf.Domain.Contracts;
 
@@ -14,7 +13,9 @@ namespace RaccoonLibrary.Bookshelf.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetBook(int bookId)
 		{
-			throw new NotImplementedException();
+			var book = await bookService.GetBook(bookId);
+
+			return book == null ? NotFound() : Ok(book);
 		}
 	}
 }

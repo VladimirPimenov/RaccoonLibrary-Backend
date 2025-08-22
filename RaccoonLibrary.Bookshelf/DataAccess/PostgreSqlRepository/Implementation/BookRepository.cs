@@ -8,9 +8,13 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementatio
 		PostgreSqlDbContext context)
 		: IBookRepository
 	{
-		public Task<Book> GetBookById(int id)
+		public async Task<Book> GetBookById(int id)
 		{
-			throw new NotImplementedException();
+			return await context.Book
+							.Include(book => book.Category)
+							.Include(book => book.Author)
+							.Include(book => book.Genre)
+							.FirstOrDefaultAsync(book => book.BookId == id);
 		}
 	}
 }
