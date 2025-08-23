@@ -11,7 +11,7 @@ namespace RaccoonLibrary.Authentification.Domain.Services
 		ITokenProvider tokenProvider)
 		: IAuthentificationService
 	{
-		public async Task<User> RegisterAsync(UserRegisterRequest registerRequest)
+		public async Task<UserDto> RegisterAsync(UserRegisterRequest registerRequest)
 		{
 			var user = new User
 			{
@@ -22,7 +22,14 @@ namespace RaccoonLibrary.Authentification.Domain.Services
 
 			var registeredUser = await authRepository.AddUserAsync(user);
 
-			return registeredUser;
+			if (registeredUser == null)
+				return null;
+
+			return new UserDto
+			{
+				Name = registeredUser.Name,
+				Email = registeredUser.Email
+			};
 		}
 
 		public async Task<string> LoginAsync(UserLoginRequest loginRequest)
