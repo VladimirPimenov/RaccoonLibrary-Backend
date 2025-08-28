@@ -6,6 +6,8 @@
 
 		public int CustomerId { get; set; }
 
+		public List<Book> OrderedBooks { get; set; }
+
 		public DateOnly OrderDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 	}
 }

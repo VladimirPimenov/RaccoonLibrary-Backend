@@ -15,17 +15,17 @@ namespace RaccoonLibrary.Ordering.Endpoints
 		}
 
 		private static async Task<IResult> GetCustomerOrderAsync(
-			int customerId,
-			IOrderingService orderService)
+			[FromQuery] int customerId,
+			[FromServices] IOrderingService orderService)
 		{
 			var order = await orderService.GetCurrentCustomerOrderAsync(customerId);
 
-			return Results.Ok(order);
+			return order == null ? Results.NotFound() : Results.Ok(order);
 		}
 
 		private static async Task<IResult> AddBookToOrderAsync(
 			[FromBody] CustomerOrderingRequest orderRequest,
-			IOrderingService orderService)
+			[FromServices] IOrderingService orderService)
 		{
 			await orderService.AddBookToCustomerOrderAsync(orderRequest.BookId, orderRequest.CustomerId);
 
@@ -34,7 +34,7 @@ namespace RaccoonLibrary.Ordering.Endpoints
 
 		private static async Task<IResult> RemoveBookFromOrderAsync(
 			[FromBody] CustomerOrderingRequest orderRequest,
-			IOrderingService orderService)
+			[FromServices] IOrderingService orderService)
 		{
 			await orderService.RemoveBookFromCustomerOrderAsync(orderRequest.BookId, orderRequest.CustomerId);
 

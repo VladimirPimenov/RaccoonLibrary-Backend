@@ -14,6 +14,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<PostgreSqlDbContext>(options => 
 	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL:DefaultConnection")));
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<IOrderingService, OrderingService>();
+builder.Services.AddScoped<IBookshelfService, BookshelfService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IBankPaymentService, MockBankService>();
+
 var app = builder.Build();
 
 app.MapOpenApi();
