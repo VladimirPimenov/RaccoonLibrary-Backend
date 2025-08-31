@@ -8,6 +8,8 @@ namespace RaccoonLibrary.Ordering.Domain.Entities
 
 		public int CustomerId { get; set; }
 
+		public decimal OrderPrice { get; set; } = 0;
+
 		public DateOnly OrderDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
 		[NotMapped]

@@ -3,16 +3,24 @@ using RaccoonLibrary.Ordering.Domain.Repositories;
 
 namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 {
-	public class PaymentRepository : IPaymentRepository
+	public class PaymentRepository(
+		PostgreSqlDbContext context)
+		: IPaymentRepository
 	{
-		public Task<PaymentAccount> CreatePaymentAsync(PaymentAccount paymentAccount)
+		public async Task<PaymentAccount> CreatePaymentAsync(PaymentAccount paymentAccount)
 		{
-			throw new NotImplementedException();
+			context.PaymentAccount.Add(paymentAccount);
+			await context.SaveChangesAsync();
+
+			return paymentAccount;
 		}
 
-		public Task<int> RemovePaymentAsync(PaymentAccount paymentAccount)
+		public async Task<int> RemovePaymentAsync(PaymentAccount paymentAccount)
 		{
-			throw new NotImplementedException();
+			context.PaymentAccount.Remove(paymentAccount);
+			await context.SaveChangesAsync();
+
+			return paymentAccount.PaymentId;
 		}
 	}
 }

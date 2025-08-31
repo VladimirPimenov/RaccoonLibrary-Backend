@@ -4,15 +4,17 @@ namespace RaccoonLibrary.Ordering.Domain.Repositories
 {
 	public interface IOrderRepository
 	{
-		public Task<Order> CreateCustomerOrderAsync(Order order);
+		public Task<Order> AddOrderAsync(Order order);
 
-		public Task RemoveOrderAsync(int orderId);
+		public Task<int> RemoveOrderAsync(Order order);
 
 		public Task<Order> GetCustomerOrderAsync(int customerId);
 
+		public Task<Order> GetOrderByIdAsync(int orderId);
+
 		public Task<List<int>> GetOrderBookIdsAsync(int orderId);
 
-		public Task AddBookToOrderAsync(Book book, Order order);
+		public Task AddBookToOrderAsync(int bookId, int orderId);
 
 		public Task RemoveBookFromOrderAsync(int bookId, int orderId);
 	}

@@ -21,6 +21,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IOrderingService, OrderingService>();
 builder.Services.AddScoped<IBookshelfService, BookshelfService>();
+builder.Services.AddScoped<ICustomerLibraryService, CustomerLibraryService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IBankPaymentService, MockBankService>();
 

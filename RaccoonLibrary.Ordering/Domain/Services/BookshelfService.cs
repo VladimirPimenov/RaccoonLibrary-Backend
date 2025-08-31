@@ -24,5 +24,20 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 
 			return book;
 		}
+
+		public async Task<List<Book>> GetBookListByIdsAsync(List<int> ids)
+		{
+			var books = new List<Book>();
+
+			foreach(int id in ids)
+			{
+				var book = await GetBookByIdAsync(id);
+
+				if(book != null)
+					books.Add(book);
+			}
+
+			return books;
+		}
 	}
 }

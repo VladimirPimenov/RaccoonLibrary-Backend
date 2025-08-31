@@ -8,19 +8,19 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 		PostgreSqlDbContext context)
 		: IOrderRepository
 	{
-		public async Task AddBookToOrderAsync(Book book, Order order)
+		public async Task AddBookToOrderAsync(int bookId, int orderId)
 		{
 			OrderedBook orderedBook = new OrderedBook 
 			{ 
-				BookId = book.BookId, 
-				OrderId = order.OrderId 
+				BookId = bookId, 
+				OrderId = orderId
 			};
 
 			context.OrderedBook.Add(orderedBook);
 			await context.SaveChangesAsync();
 		}
 
-		public async Task<Order> CreateCustomerOrderAsync(Order order)
+		public async Task<Order> AddOrderAsync(Order order)
 		{
 			context.Order.Add(order);
 			await context.SaveChangesAsync();
@@ -41,6 +41,11 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 							.ToListAsync();
 		}
 
+		public async Task<Order> GetOrderByIdAsync(int orderId)
+		{
+			return await context.Order.FindAsync(orderId);
+		}
+
 		public async Task RemoveBookFromOrderAsync(int bookId, int orderId)
 		{
 			OrderedBook book = await context.OrderedBook.FirstOrDefaultAsync(book => 
@@ -51,9 +56,27 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 			await context.SaveChangesAsync();
 		}
 
-		public Task RemoveOrderAsync(int orderId)
+		public async Task<int> RemoveOrderAsync(Order order)
 		{
-			throw new NotImplementedException();
+			await RemoveOrderBooks(order.OrderId);
+
+			context.Order.Remove(order);
+			await context.SaveChangesAsync();
+
+			return order.OrderId;
+		}
+
+		private async Task RemoveOrderBooks(int orderId)
+		{
+			var orderedBooks = await context.OrderedBook
+										.Where(book => book.OrderId == orderId)
+										.ToListAsync();
+
+			foreach (var book in orderedBooks)
+			{
+				context.OrderedBook.Remove(book);
+			}
+			await context.SaveChangesAsync();
 		}
 	}
 }
