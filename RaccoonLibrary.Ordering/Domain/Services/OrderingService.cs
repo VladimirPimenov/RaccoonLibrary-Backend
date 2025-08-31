@@ -2,6 +2,7 @@
 using RaccoonLibrary.Ordering.Domain.Entities;
 using RaccoonLibrary.Ordering.Domain.Repositories;
 using System.Runtime.CompilerServices;
+using System;
 
 namespace RaccoonLibrary.Ordering.Domain.Services
 {
@@ -21,8 +22,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 				order = await orderRepository.CreateCustomerOrderAsync(new Order { CustomerId = customerId });
 			}
 
-			if (book != null)
-				await orderRepository.AddBookToOrderAsync(book, order);
+			await orderRepository.AddBookToOrderAsync(book.BookId, order.OrderId);
 		}
 
 		public async Task<Order> GetCurrentCustomerOrderAsync(int customerId)
@@ -47,17 +47,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		{
 			var bookIds = await orderRepository.GetOrderBookIdsAsync(order.OrderId);
 
-			var books = new List<Book>();
-
-			foreach(int bookId in bookIds)
-			{
-				Book book = await bookService.GetBookByIdAsync(bookId);
-
-				if(book != null)
-					books.Add(book);
-			}
-
-			return books;
+			return await bookService.GetBookListByIdsAsync(bookIds);
 		}
 	}
 }
