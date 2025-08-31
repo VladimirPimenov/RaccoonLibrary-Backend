@@ -7,10 +7,10 @@ using RaccoonLibrary.ReaderLibrary.Domain.Contracts;
 using RaccoonLibrary.ReaderLibrary.Domain.Services;
 using RaccoonLibrary.ReaderLibrary.Domain.Repositories;
 using RaccoonLibrary.ReaderLibrary.DataAccess.PostgreSqlRepository.Implementation;
+using RaccoonLibrary.ReaderLibrary.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
@@ -30,6 +30,6 @@ app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.MapReaderBookEndpoints();
 
 app.Run();
