@@ -1,8 +1,6 @@
 ﻿using RaccoonLibrary.Ordering.Domain.Contracts;
 using RaccoonLibrary.Ordering.Domain.Entities;
 using RaccoonLibrary.Ordering.Domain.Repositories;
-using System.Runtime.CompilerServices;
-using System;
 
 namespace RaccoonLibrary.Ordering.Domain.Services
 {

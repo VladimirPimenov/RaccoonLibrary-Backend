@@ -10,7 +10,7 @@ namespace RaccoonLibrary.Bookshelf.Controllers
 		IBookQueryService bookService) 
 		: ControllerBase
 	{
-		[HttpGet]
+		[HttpGet("{bookId}")]
 		public async Task<IActionResult> GetBook(int bookId)
 		{
 			var book = await bookService.GetBook(bookId);

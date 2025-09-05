@@ -1,6 +1,7 @@
-﻿using RaccoonLibrary.ReaderLibrary.Domain.Contracts;
-using RaccoonLibrary.ReaderLibrary.Domain.DTO;
+﻿using RaccoonLibrary.ReaderLibrary.Domain.DTO;
 using RaccoonLibrary.ReaderLibrary.Domain.Entities;
+
+using RaccoonLibrary.ReaderLibrary.Domain.Contracts;
 using RaccoonLibrary.ReaderLibrary.Domain.Repositories;
 
 namespace RaccoonLibrary.ReaderLibrary.Domain.Services
