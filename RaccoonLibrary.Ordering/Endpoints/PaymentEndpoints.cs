@@ -9,7 +9,8 @@ namespace RaccoonLibrary.Ordering.Endpoints
 	{
 		public static void MapPaymentEndpoints(this IEndpointRouteBuilder app)
 		{
-			app.MapPost("order-payment", PayCustomerOrderAsync);
+			app.MapPost("order-payment", PayCustomerOrderAsync)
+				.RequireAuthorization();
 		}
 
 		private static async Task<IResult> PayCustomerOrderAsync(

@@ -24,12 +24,15 @@ namespace RaccoonLibrary.Authentification.Endpoints
 
 		private static async Task<IResult> LoginAsync(
 			UserLoginRequest request,
-			IAuthentificationService authService)
+			IAuthentificationService authService,
+			HttpContext httpContext)
 		{
 			var token = await authService.LoginAsync(request);
 
 			if (token == null)
 				return Results.Unauthorized();
+
+			httpContext.Response.Cookies.Append("token", token);
 
 			return Results.Ok(token);
 		}

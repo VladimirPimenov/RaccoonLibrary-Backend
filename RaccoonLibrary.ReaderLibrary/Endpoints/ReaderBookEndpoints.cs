@@ -8,8 +8,10 @@ namespace RaccoonLibrary.ReaderLibrary.Endpoints
 	{
 		public static void MapReaderBookEndpoints(this IEndpointRouteBuilder app)
 		{
-			app.MapGet("{readerId}/books", GetReaderBooksAsync);
-			app.MapPost("", AddBookToReaderAsync);
+			app.MapGet("{readerId}/books", GetReaderBooksAsync)
+				.RequireAuthorization();
+			app.MapPost("", AddBookToReaderAsync)
+				.RequireAuthorization();
 		}
 
 		private static async Task<IResult> GetReaderBooksAsync(
