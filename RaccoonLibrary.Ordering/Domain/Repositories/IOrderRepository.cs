@@ -6,6 +6,8 @@ namespace RaccoonLibrary.Ordering.Domain.Repositories
 	{
 		public Task<Order> AddOrderAsync(Order order);
 
+		public Task<Order> UpdateOrderAsync(Order order);
+
 		public Task<int> RemoveOrderAsync(Order order);
 
 		public Task<Order> GetCustomerOrderAsync(int customerId);

@@ -20,6 +20,10 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 				order = await orderRepository.AddOrderAsync(new Order { CustomerId = customerId });
 			}
 
+			order.OrderPrice += book.Price;
+
+			await orderRepository.UpdateOrderAsync(order);
+
 			await orderRepository.AddBookToOrderAsync(book.BookId, order.OrderId);
 		}
 
@@ -28,11 +32,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			Order order = await orderRepository.GetCustomerOrderAsync(customerId);
 
 			if (order != null)
-			{
 				order.OrderedBooks = await GetOrderBooks(order);
-
-				order.OrderPrice = await CalculateOrderPriceAsync(order);
-			}
 
 			return order;
 		}
@@ -46,7 +46,12 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		{
 			Order order = await orderRepository.GetCustomerOrderAsync(customerId);
 
+			Book book = await bookService.GetBookByIdAsync(bookId);
+
 			if (order != null)
+			{
+				order.OrderPrice -= book.Price;
+			}
 				await orderRepository.RemoveBookFromOrderAsync(bookId, order.OrderId);
 		}
 
@@ -55,18 +60,6 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			var bookIds = await orderRepository.GetOrderBookIdsAsync(order.OrderId);
 
 			return await bookService.GetBookListByIdsAsync(bookIds);
-		}
-
-		private async Task<decimal> CalculateOrderPriceAsync(Order order)
-		{
-			decimal orderPrice = 0;
-
-			foreach (Book book in order.OrderedBooks)
-			{
-				orderPrice += book.Price;
-			}
-
-			return orderPrice;
 		}
 	}
 }

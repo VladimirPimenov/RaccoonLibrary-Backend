@@ -1,7 +1,9 @@
-﻿using RaccoonLibrary.Ordering.Domain.Entities;
-using RaccoonLibrary.Ordering.Domain.Repositories;
+﻿using RaccoonLibrary.Payment.Domain.Entities;
 
-namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
+using RaccoonLibrary.Payment.Domain.Repositories;
+using RaccoonLibrary.Payment.DataAccess.PostgreSQL;
+
+namespace RaccoonLibrary.Payment.DataAccess.PostgreSqlRepository.Implementation
 {
 	public class PaymentRepository(
 		PostgreSqlDbContext context)
@@ -10,6 +12,14 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 		public async Task<PaymentAccount> CreatePaymentAsync(PaymentAccount paymentAccount)
 		{
 			context.PaymentAccount.Add(paymentAccount);
+			await context.SaveChangesAsync();
+
+			return paymentAccount;
+		}
+
+		public async Task<PaymentAccount> UpdatePaymentAsync(PaymentAccount paymentAccount)
+		{
+			context.Attach(paymentAccount);
 			await context.SaveChangesAsync();
 
 			return paymentAccount;

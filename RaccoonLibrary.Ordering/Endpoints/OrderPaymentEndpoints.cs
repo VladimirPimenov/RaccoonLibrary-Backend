@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+
 using RaccoonLibrary.Ordering.Domain.Contracts;
 using RaccoonLibrary.Ordering.Domain.DTO;
 
@@ -15,15 +16,15 @@ namespace RaccoonLibrary.Ordering.Endpoints
 
 		private static async Task<IResult> PayCustomerOrderAsync(
 			[FromBody] CustomerPaymentRequest paymentRequest,
-			[FromServices] IPaymentService paymentService
+			[FromServices] IOrderPaymentService paymentService
 			)
 		{
-			var payment = await paymentService.RequestOrderPaymentAsync(paymentRequest);
+			var paidOrder = await paymentService.RequestOrderPaymentAsync(paymentRequest);
 
-			if (payment == null)
+			if (paidOrder == null)
 				return Results.BadRequest();
 
-			return await paymentService.CloseOrderPaymentAsync(payment)
+			return await paymentService.CloseOrderAsync(paidOrder)
 							? Results.Ok()
 							: Results.BadRequest();
 		}

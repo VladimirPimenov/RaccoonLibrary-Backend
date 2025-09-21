@@ -21,6 +21,14 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 			await context.SaveChangesAsync();
 		}
 
+		public async Task<Order> UpdateOrderAsync(Order order)
+		{
+			context.Order.Attach(order);
+			await context.SaveChangesAsync();
+
+			return order;
+		}
+
 		public async Task<Order> AddOrderAsync(Order order)
 		{
 			context.Order.Add(order);

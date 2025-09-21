@@ -21,7 +21,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 
 		private async Task AddBookToCustomerAsync(int bookId, int customerId)
 		{
-			string requestString = $"{libraryApiAddress}/reader";
+			string requestString = $"{libraryApiAddress}";
 
 			var content = new BookAddingRequest
 			{

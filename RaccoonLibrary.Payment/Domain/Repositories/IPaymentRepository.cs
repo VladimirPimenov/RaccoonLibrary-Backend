@@ -1,10 +1,12 @@
-﻿using RaccoonLibrary.Ordering.Domain.Entities;
+﻿using RaccoonLibrary.Payment.Domain.Entities;
 
-namespace RaccoonLibrary.Ordering.Domain.Repositories
+namespace RaccoonLibrary.Payment.Domain.Repositories
 {
 	public interface IPaymentRepository
 	{
 		public Task<PaymentAccount> CreatePaymentAsync(PaymentAccount paymentAccount);
+
+		public Task<PaymentAccount> UpdatePaymentAsync(PaymentAccount paymentAccount);
 
 		public Task<int> RemovePaymentAsync(PaymentAccount paymentAccount);
 	}
