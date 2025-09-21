@@ -1,9 +1,9 @@
 ﻿namespace RaccoonLibrary.Authentification.Domain.DTO
 {
-	public class UserDto
+	public record UserDto
 	{
-		public string Name { get; set; }
+		public string Name { get; init; }
 
-		public string Email { get; set; }
+		public string Email { get; init; }
 	}
 }

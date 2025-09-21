@@ -1,9 +1,9 @@
 ﻿namespace RaccoonLibrary.Payment.Domain.DTO
 {
-	public class BankPaymentRequest
+	public record BankPaymentRequest
 	{
-		public string CardNumber { get; set; }
+		public string CardNumber { get; init; }
 
-		public decimal PaymentSum { get; set; }
+		public decimal PaymentSum { get; init; }
 	}
 }

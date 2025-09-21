@@ -2,14 +2,14 @@
 
 namespace RaccoonLibrary.Bookshelf.Domain.DTO
 {
-	public class BookDto
+	public record BookDto
 	{
-		public int BookId { get; set; }
+		public int BookId { get; init; }
 
-		public string Title { get; set; }
+		public string Title { get; init; }
 
-		public string Author { get; set; }
+		public string Author { get; init; }
 
-		public decimal Price { get; set; }
+		public decimal Price { get; init; }
 	}
 }

@@ -1,9 +1,9 @@
 ﻿namespace RaccoonLibrary.Ordering.Domain.DTO
 {
-	public class BookAddingRequest
+	public record BookAddingRequest
 	{
-		public int BookId { get; set; }
+		public int BookId { get; init; }
 
-		public int ReaderId { get; set; }
+		public int ReaderId { get; init; }
 	}
 }

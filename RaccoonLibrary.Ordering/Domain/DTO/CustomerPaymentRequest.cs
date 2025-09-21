@@ -1,9 +1,9 @@
 ﻿namespace RaccoonLibrary.Ordering.Domain.DTO
 {
-	public class CustomerPaymentRequest
+	public record CustomerPaymentRequest
 	{
-		public int CustomerId { get; set; }
+		public int CustomerId { get; init; }
 
-		public string BankCardNumber { get;set; }
+		public string BankCardNumber { get; init; }
 	}
 }

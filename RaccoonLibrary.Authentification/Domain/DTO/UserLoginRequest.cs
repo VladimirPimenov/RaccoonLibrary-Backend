@@ -1,9 +1,9 @@
 ﻿namespace RaccoonLibrary.Authentification.Domain.DTO
 {
-	public class UserLoginRequest
+	public record UserLoginRequest
 	{
-		public string Name { get; set; }
+		public string Name { get; init; }
 
-		public string Password { get; set; }
+		public string Password { get; init; }
 	}
 }
