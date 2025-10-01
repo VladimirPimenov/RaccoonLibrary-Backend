@@ -1,18 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-using Scalar.AspNetCore;
-
 using RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository;
 using RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementation;
 
 using RaccoonLibrary.Bookshelf.Domain.Contracts;
 using RaccoonLibrary.Bookshelf.Domain.Repositories;
 using RaccoonLibrary.Bookshelf.Domain.Services;
+using RaccoonLibrary.Bookshelf.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
 {
@@ -29,11 +25,10 @@ builder.Services.AddScoped<IAuthorQueryService, AuthorQueryService>();
 
 var app = builder.Build();
 
-app.MapOpenApi();
-app.MapScalarApiReference();
-
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.MapAuthorEndpoints();
+app.MapBookEndpoints();
+app.MapSearchEndpoints();
 
 app.Run();
