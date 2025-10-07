@@ -49,10 +49,11 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			Book book = await bookService.GetBookByIdAsync(bookId);
 
 			if (order != null)
-			{
 				order.OrderPrice -= book.Price;
-			}
-				await orderRepository.RemoveBookFromOrderAsync(bookId, order.OrderId);
+
+			await orderRepository.RemoveBookFromOrderAsync(bookId, order.OrderId);
+
+			await RemoveOrderIfNoBooks(order);
 		}
 
 		private async Task<List<Book>> GetOrderBooks(Order order)
@@ -60,6 +61,14 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			var bookIds = await orderRepository.GetOrderBookIdsAsync(order.OrderId);
 
 			return await bookService.GetBookListByIdsAsync(bookIds);
+		}
+
+		private async Task RemoveOrderIfNoBooks(Order order)
+		{
+			int booksInOrder = await orderRepository.CountOrderBooksAsync(order);
+
+			if (booksInOrder == 0)
+				await RemoveOrderAsync(order);
 		}
 	}
 }

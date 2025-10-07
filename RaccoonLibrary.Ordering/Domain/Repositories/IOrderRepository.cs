@@ -19,5 +19,7 @@ namespace RaccoonLibrary.Ordering.Domain.Repositories
 		public Task AddBookToOrderAsync(int bookId, int orderId);
 
 		public Task RemoveBookFromOrderAsync(int bookId, int orderId);
+
+		public Task<int> CountOrderBooksAsync(Order order);
 	}
 }

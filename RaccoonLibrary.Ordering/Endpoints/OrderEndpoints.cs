@@ -18,7 +18,7 @@ namespace RaccoonLibrary.Ordering.Endpoints
 		}
 
 		private static async Task<IResult> GetCustomerOrderAsync(
-			[FromQuery] int customerId,
+			[FromRoute] int customerId,
 			[FromServices] IOrderingService orderService)
 		{
 			var order = await orderService.GetCustomerOrderAsync(customerId);

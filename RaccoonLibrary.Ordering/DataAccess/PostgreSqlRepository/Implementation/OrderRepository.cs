@@ -67,7 +67,7 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 
 		public async Task<int> RemoveOrderAsync(Order order)
 		{
-			await RemoveOrderBooks(order.OrderId);
+			await RemoveOrderBooksAsync(order.OrderId);
 
 			context.Order.Remove(order);
 			await context.SaveChangesAsync();
@@ -75,7 +75,14 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 			return order.OrderId;
 		}
 
-		private async Task RemoveOrderBooks(int orderId)
+		public async Task<int> CountOrderBooksAsync(Order order)
+		{
+			return await context.OrderedBook
+									.Where(b => b.OrderId == order.OrderId)
+									.CountAsync();
+		}
+
+		private async Task RemoveOrderBooksAsync(int orderId)
 		{
 			var orderedBooks = await context.OrderedBook
 										.Where(book => book.OrderId == orderId)
