@@ -8,7 +8,7 @@ namespace RaccoonLibrary.Ordering.Domain.Contracts
 
 		public Task<int> RemoveOrderAsync(Order order);
 
-		public Task AddBookToCustomerOrderAsync(int bookId, int customerId);
+		public Task<Order> AddBookToCustomerOrderAsync(int bookId, int customerId);
 
 		public Task RemoveBookFromCustomerOrderAsync(int bookId, int customerId);
 	}

@@ -30,9 +30,9 @@ namespace RaccoonLibrary.Ordering.Endpoints
 			[FromBody] CustomerOrderingRequest orderRequest,
 			[FromServices] IOrderingService orderService)
 		{
-			await orderService.AddBookToCustomerOrderAsync(orderRequest.BookId, orderRequest.CustomerId);
+			var updatedOrder = await orderService.AddBookToCustomerOrderAsync(orderRequest.BookId, orderRequest.CustomerId);
 
-			return Results.Ok();
+			return updatedOrder == null ? Results.BadRequest() : Results.Ok();
 		}
 
 		private static async Task<IResult> RemoveBookFromOrderAsync(

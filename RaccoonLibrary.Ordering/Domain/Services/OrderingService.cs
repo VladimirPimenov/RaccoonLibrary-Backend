@@ -9,22 +9,24 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		IBookshelfService bookService)
 		: IOrderingService
 	{
-		public async Task AddBookToCustomerOrderAsync(int bookId, int customerId)
+		public async Task<Order> AddBookToCustomerOrderAsync(int bookId, int customerId)
 		{
 			Book book = await bookService.GetBookByIdAsync(bookId);
+
+			if (book == null)
+				return null;
 
 			Order order = await orderRepository.GetCustomerOrderAsync(customerId);
 
 			if(order == null)
-			{
 				order = await orderRepository.AddOrderAsync(new Order { CustomerId = customerId });
-			}
 
 			order.OrderPrice += book.Price;
-
 			await orderRepository.UpdateOrderAsync(order);
 
 			await orderRepository.AddBookToOrderAsync(book.BookId, order.OrderId);
+
+			return order;
 		}
 
 		public async Task<Order> GetCustomerOrderAsync(int customerId)
@@ -49,11 +51,13 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			Book book = await bookService.GetBookByIdAsync(bookId);
 
 			if (order != null)
+			{
 				order.OrderPrice -= book.Price;
+				
+			    await orderRepository.RemoveBookFromOrderAsync(bookId, order.OrderId);
 
-			await orderRepository.RemoveBookFromOrderAsync(bookId, order.OrderId);
-
-			await RemoveOrderIfNoBooks(order);
+				await RemoveOrderIfNoBooks(order);
+			}
 		}
 
 		private async Task<List<Book>> GetOrderBooks(Order order)
