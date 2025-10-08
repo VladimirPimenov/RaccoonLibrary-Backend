@@ -6,11 +6,8 @@ using RaccoonLibrary.Ordering.Domain.Repositories;
 using RaccoonLibrary.Ordering.Domain.Services;
 using RaccoonLibrary.Ordering.Endpoints;
 using RaccoonLibrary.ReaderLibrary;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<PostgreSqlDbContext>(options => 
 	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL:DefaultConnection")));
@@ -29,9 +26,6 @@ builder.Services.AddTokenAuthentification(builder.Configuration);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-
-app.MapOpenApi();
-app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 

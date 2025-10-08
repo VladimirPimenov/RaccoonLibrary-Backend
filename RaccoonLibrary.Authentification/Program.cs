@@ -7,11 +7,8 @@ using RaccoonLibrary.Authentification.Storage.RepositoryImplementation;
 using RaccoonLibrary.Authentification.Domain.Contracts;
 using RaccoonLibrary.Authentification.Domain.Services;
 using RaccoonLibrary.Authentification.Endpoints;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL:DefaultConnection")));
@@ -22,9 +19,6 @@ builder.Services.AddScoped<IAuthentificationService, AuthentificationService>();
 builder.Services.AddScoped<ITokenProvider, JwtTokenProvider>();
 
 var app = builder.Build();
-
-app.MapOpenApi();
-app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 

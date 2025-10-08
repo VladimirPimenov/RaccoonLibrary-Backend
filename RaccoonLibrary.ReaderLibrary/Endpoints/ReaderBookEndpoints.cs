@@ -14,7 +14,7 @@ namespace RaccoonLibrary.ReaderLibrary.Endpoints
 		}
 
 		private static async Task<IResult> GetReaderBooksAsync(
-			[FromQuery] int readerId,
+			[FromRoute] int readerId,
 			[FromServices] IReaderBooksService booksService)
 		{
 			var books = await booksService.GetReaderBooksAsync(readerId);
