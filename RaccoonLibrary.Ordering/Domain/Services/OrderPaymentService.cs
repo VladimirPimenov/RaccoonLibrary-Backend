@@ -6,13 +6,13 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 {
 	public class OrderPaymentService(
 		IPaymentApiClient paymentClient,
-		ICustomerLibraryService customerLibraryService,
+		ICustomerLibraryApiClient customerLibraryclient,
 		IOrderingService orderService) 
 		: IOrderPaymentService
 	{
 		public async Task<bool> CloseOrderAsync(Order order)
 		{
-			await customerLibraryService.AddOrderedBooksToCustomerAsync(order);
+			await customerLibraryclient.AddOrderedBooksToCustomerAsync(order);
 
 			await orderService.RemoveOrderAsync(order);
 

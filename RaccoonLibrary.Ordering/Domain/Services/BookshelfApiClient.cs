@@ -3,10 +3,10 @@ using RaccoonLibrary.Ordering.Domain.Entities;
 
 namespace RaccoonLibrary.Ordering.Domain.Services
 {
-	public class BookshelfService(
+	public class BookshelfApiClient(
 		IHttpClientFactory httpClientFactory,
 		IConfiguration config)
-		: IBookshelfService
+		: IBookshelfApiClient
 	{
 		private readonly string bookshelfApiAddress = config.GetValue<string>("ServiceConnections:BookshelfService");
 

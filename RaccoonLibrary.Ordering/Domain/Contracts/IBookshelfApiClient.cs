@@ -2,7 +2,7 @@
 
 namespace RaccoonLibrary.Ordering.Domain.Contracts
 {
-	public interface IBookshelfService
+	public interface IBookshelfApiClient
 	{
 		public Task<Book> GetBookByIdAsync(int id);
 

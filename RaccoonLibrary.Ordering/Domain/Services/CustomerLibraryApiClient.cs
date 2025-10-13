@@ -4,10 +4,11 @@ using RaccoonLibrary.Ordering.Domain.Entities;
 
 namespace RaccoonLibrary.Ordering.Domain.Services
 {
-	public class CustomerLibraryService(
+	public class CustomerLibraryApiClient
+	(
 		IHttpClientFactory httpClientFactory,
 		IConfiguration config)
-		: ICustomerLibraryService
+		: ICustomerLibraryApiClient
 	{
 		private readonly string libraryApiAddress = config.GetValue<string>("ServiceConnections:LibraryService");
 

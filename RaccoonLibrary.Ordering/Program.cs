@@ -17,8 +17,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IOrderingService, OrderingService>();
-builder.Services.AddScoped<IBookshelfService, BookshelfService>();
-builder.Services.AddScoped<ICustomerLibraryService, CustomerLibraryService>();
+builder.Services.AddScoped<IBookshelfApiClient, BookshelfApiClient>();
+builder.Services.AddScoped<ICustomerLibraryApiClient, CustomerLibraryApiClient>();
 builder.Services.AddScoped<IOrderPaymentService, OrderPaymentService>();
 builder.Services.AddScoped<IPaymentApiClient, PaymentApiClient>();
 
