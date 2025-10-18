@@ -6,6 +6,7 @@ using RaccoonLibrary.Authentification.Storage.RepositoryImplementation;
 
 using RaccoonLibrary.Authentification.Domain.Contracts;
 using RaccoonLibrary.Authentification.Domain.Services;
+
 using RaccoonLibrary.Authentification.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IAuthentificationRepository, AuthentificationReposito
 
 builder.Services.AddScoped<IAuthentificationService, AuthentificationService>();
 builder.Services.AddScoped<ITokenProvider, JwtTokenProvider>();
+builder.Services.AddScoped<IPasswordHashService, PasswordHashService>();
 
 var app = builder.Build();
 

@@ -8,15 +8,18 @@ namespace RaccoonLibrary.Authentification.Domain.Services
 {
 	public class AuthentificationService(
 		IAuthentificationRepository authRepository,
-		ITokenProvider tokenProvider)
+		ITokenProvider tokenProvider,
+		IPasswordHashService hashService)
 		: IAuthentificationService
 	{
 		public async Task<UserDto> RegisterAsync(UserRegisterRequest registerRequest)
 		{
+			string hashedPassword = hashService.HashPassword(registerRequest.Password);
+
 			var user = new User
 			{
 				Name = registerRequest.Name,
-				Password = registerRequest.Password,
+				Password = hashedPassword,
 				Email = registerRequest.Email
 			};
 
@@ -39,7 +42,7 @@ namespace RaccoonLibrary.Authentification.Domain.Services
 			if (user == null)
 				return null;
 
-			if (user.Password != loginRequest.Password)
+			if (!hashService.VerifyPassword(loginRequest.Password, user.Password))
 				return null;
 
 			var token = tokenProvider.GenerateAccessToken(user);
