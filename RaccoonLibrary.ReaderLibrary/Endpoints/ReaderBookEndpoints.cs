@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using RaccoonLibrary.ReaderLibrary.Domain.Contracts;
 using RaccoonLibrary.ReaderLibrary.Domain.DTO;
 
@@ -8,8 +9,7 @@ namespace RaccoonLibrary.ReaderLibrary.Endpoints
 	{
 		public static void MapReaderBookEndpoints(this IEndpointRouteBuilder app)
 		{
-			app.MapGet("{readerId}/books", GetReaderBooksAsync)
-				.RequireAuthorization();
+			app.MapGet("{readerId}/books", GetReaderBooksAsync);
 			app.MapPost("", AddBookToReaderAsync);
 		}
 

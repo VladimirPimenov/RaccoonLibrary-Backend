@@ -22,15 +22,9 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IReaderBooksService, ReaderBooksService>();
 builder.Services.AddScoped<IBookshelfService, BookshelfService>();
 
-builder.Services.AddTokenAuthentification(builder.Configuration);
-builder.Services.AddAuthorization();
-
 var app = builder.Build();
 
 app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapReaderBookEndpoints();
 

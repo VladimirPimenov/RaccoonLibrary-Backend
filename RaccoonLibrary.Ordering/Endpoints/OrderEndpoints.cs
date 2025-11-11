@@ -9,12 +9,9 @@ namespace RaccoonLibrary.Ordering.Endpoints
 	{
 		public static void MapOrderEndpoints(this IEndpointRouteBuilder app)
 		{
-			app.MapGet("orders/{customerId}", GetCustomerOrderAsync)
-				.RequireAuthorization();
-			app.MapPost("order/book", AddBookToOrderAsync)
-				.RequireAuthorization();
-			app.MapDelete("order/book", RemoveBookFromOrderAsync)
-				.RequireAuthorization();
+			app.MapGet("orders/{customerId}", GetCustomerOrderAsync);
+			app.MapPost("order/book", AddBookToOrderAsync);
+			app.MapDelete("order/book", RemoveBookFromOrderAsync);
 		}
 
 		private static async Task<IResult> GetCustomerOrderAsync(

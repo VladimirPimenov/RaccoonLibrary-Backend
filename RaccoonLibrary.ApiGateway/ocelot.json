@@ -14,6 +14,19 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/logout",
+      "UpstreamHttpMethod": [ "POST" ],
+
+      "DownstreamPathTemplate": "/logout",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5021
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/register",
       "UpstreamHttpMethod": [ "POST" ],
 
@@ -89,7 +102,11 @@
           "Host": "localhost",
           "Port": 5022
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/reader/addbook",
@@ -115,7 +132,11 @@
           "Host": "localhost",
           "Port": 5183
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/order/book",
@@ -128,7 +149,11 @@
           "Host": "localhost",
           "Port": 5183
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/order/book",
@@ -141,7 +166,11 @@
           "Host": "localhost",
           "Port": 5183
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "UpstreamPathTemplate": "/order/payment",
@@ -154,7 +183,11 @@
           "Host": "localhost",
           "Port": 5183
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {

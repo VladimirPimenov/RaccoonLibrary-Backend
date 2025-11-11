@@ -1,6 +1,5 @@
 using RaccoonLibrary.Authentification.Domain.DTO;
 
-
 using RaccoonLibrary.Authentification.Domain.Contracts;
 
 namespace RaccoonLibrary.Authentification.Endpoints
@@ -11,6 +10,7 @@ namespace RaccoonLibrary.Authentification.Endpoints
         {
 			app.MapPost("register", RegisterAsync);
 			app.MapPost("login", LoginAsync);
+			app.MapPost("logout", LogoutAsync);
         }
 
 		private static async Task<IResult> RegisterAsync(
@@ -35,6 +35,15 @@ namespace RaccoonLibrary.Authentification.Endpoints
 			httpContext.Response.Cookies.Append("token", token);
 
 			return Results.Ok(token);
+		}
+		
+		private static async Task<IResult> LogoutAsync(
+			HttpContext httpContext
+		)
+		{
+			httpContext.Response.Cookies.Delete("token");
+
+			return Results.Ok();
 		}
 	}
 }

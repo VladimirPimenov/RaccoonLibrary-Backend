@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 using Microsoft.IdentityModel.Tokens;
+
 using System.Text;
 
-namespace RaccoonLibrary.ReaderLibrary
+namespace RaccoonLibrary.ApiGateway
 {
-	public static class ServiceCollectionExtensions
+	public static class AuthentificationExtension
 	{
-		public static void AddTokenAuthentification(
+		public static void AddJwtTokenAuthentification(
 			this IServiceCollection services,
 			IConfiguration config)
 		{
