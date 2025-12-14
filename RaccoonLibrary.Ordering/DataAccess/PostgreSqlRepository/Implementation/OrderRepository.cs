@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using RaccoonLibrary.Ordering.Domain.Entities;
+using RaccoonLibrary.Ordering.Domain.Enums;
 using RaccoonLibrary.Ordering.Domain.Repositories;
 
 namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
@@ -39,7 +40,9 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository.Implementation
 
 		public async Task<Order> GetCustomerOrderAsync(int customerId)
 		{
-			return await context.Order.FirstOrDefaultAsync(order => order.CustomerId == customerId);
+			return await context.Order.FirstOrDefaultAsync(order => 
+								order.CustomerId == customerId
+								&& order.Status == OrderStatus.InProgress);
 		}
 
 		public async Task<List<int>> GetOrderBookIdsAsync(int orderId)

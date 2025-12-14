@@ -4,6 +4,6 @@ namespace RaccoonLibrary.Ordering.Domain.Contracts
 {
 	public interface ICustomerLibraryApiClient
 	{
-		public Task AddOrderedBooksToCustomerAsync(Order order);
+		public Task<bool> AddOrderedBooksToCustomerAsync(Order order);
 	}
 }

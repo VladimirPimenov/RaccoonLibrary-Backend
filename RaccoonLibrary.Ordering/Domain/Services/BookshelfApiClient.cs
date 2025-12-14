@@ -17,7 +17,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			HttpClient httpClient = httpClientFactory.CreateClient();
 			using HttpResponseMessage responce = await httpClient.GetAsync(requestString);
 
-			if (responce.StatusCode == System.Net.HttpStatusCode.NotFound)
+			if (responce.StatusCode != System.Net.HttpStatusCode.OK)
 				return null;
 
 			Book book = await responce.Content.ReadFromJsonAsync<Book>();

@@ -24,7 +24,7 @@ builder.Services.AddScoped<IOrderingService, OrderingService>();
 builder.Services.AddScoped<IBookshelfApiClient, BookshelfApiClient>();
 builder.Services.AddScoped<ICustomerLibraryApiClient, CustomerLibraryApiClient>();
 builder.Services.AddScoped<IOrderPaymentService, OrderPaymentService>();
-builder.Services.AddScoped<IPaymentApiClient, PaymentApiClient>();
+builder.Services.AddScoped<IPaymentApiClient, MockBankService>();
 
 var app = builder.Build();
 

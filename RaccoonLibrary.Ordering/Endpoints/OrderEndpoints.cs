@@ -19,7 +19,7 @@ namespace RaccoonLibrary.Ordering.Endpoints
 			[FromRoute] int customerId,
 			[FromServices] IOrderingService orderService)
 		{
-			var order = await orderService.GetCustomerOrderAsync(customerId);
+			var order = await orderService.GetOpenCustomerOrderAsync(customerId);
 
 			return order == null ? Results.NotFound() : Results.Ok(order);
 		}

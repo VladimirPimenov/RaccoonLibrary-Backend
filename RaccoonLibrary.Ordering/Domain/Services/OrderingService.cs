@@ -1,5 +1,6 @@
 ﻿using RaccoonLibrary.Ordering.Domain.Contracts;
 using RaccoonLibrary.Ordering.Domain.Entities;
+using RaccoonLibrary.Ordering.Domain.Enums;
 using RaccoonLibrary.Ordering.Domain.Repositories;
 
 namespace RaccoonLibrary.Ordering.Domain.Services
@@ -29,7 +30,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			return order;
 		}
 
-		public async Task<Order> GetCustomerOrderAsync(int customerId)
+		public async Task<Order> GetOpenCustomerOrderAsync(int customerId)
 		{
 			Order order = await orderRepository.GetCustomerOrderAsync(customerId);
 
@@ -58,6 +59,13 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 
 				await RemoveOrderIfNoBooks(order);
 			}
+		}
+
+		public async Task<Order> UpdateOrder(Order order)
+		{
+			order = await orderRepository.UpdateOrderAsync(order);
+
+			return order;
 		}
 
 		private async Task<List<Book>> GetOrderBooks(Order order)

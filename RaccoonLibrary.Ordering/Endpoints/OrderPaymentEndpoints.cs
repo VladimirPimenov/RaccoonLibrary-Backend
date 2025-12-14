@@ -18,14 +18,9 @@ namespace RaccoonLibrary.Ordering.Endpoints
 			[FromServices] IOrderPaymentService paymentService
 			)
 		{
-			var paidOrder = await paymentService.RequestOrderPaymentAsync(paymentRequest);
+			var paidOrder = await paymentService.PayOrderAsync(paymentRequest);
 
-			if (paidOrder == null)
-				return Results.BadRequest();
-
-			return await paymentService.CloseOrderAsync(paidOrder)
-							? Results.Ok()
-							: Results.BadRequest();
+			return paidOrder == null ? Results.BadRequest() : Results.Ok();
 		}
 	}
 }
