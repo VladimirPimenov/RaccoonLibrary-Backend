@@ -2,9 +2,8 @@
 using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace RaccoonLibrary.Ordering.Middlewares
+namespace RaccoonLibrary.ReaderLibrary.Middlewares
 {
 	public class ExceptionMiddleware(RequestDelegate next)
 	{
@@ -12,27 +11,26 @@ namespace RaccoonLibrary.Ordering.Middlewares
 		{
 			try
 			{
-				await next(httpContext);
+				await next.Invoke(httpContext);
 			}
-			catch (DbUpdateException ex)
+			catch(DbUpdateException ex)
 			{
-				await HandleExceptionAsync(httpContext, HttpStatusCode.Conflict, ex.Message);
+				await HandleExceptionAsync(httpContext, HttpStatusCode.Conflict, "Книга уже приобретена");
 			}
-			catch (Exception ex)
+			catch(Exception ex)
 			{
 				await HandleExceptionAsync(httpContext, HttpStatusCode.InternalServerError, "Произошла неизвестная ошибка");
 			}
 		}
 
 		private async Task HandleExceptionAsync(
-			HttpContext httpContext, 
+			HttpContext httpContext,
 			HttpStatusCode statusCode,
 			string message)
 		{
-			HttpResponse responce = httpContext.Response;
-
-			responce.ContentType = "application/json";
-			responce.StatusCode = (int)statusCode;
+			HttpResponse response = httpContext.Response;
+			response.ContentType = "application/json";
+			response.StatusCode = (int)statusCode;
 
 			JsonSerializerOptions options = new JsonSerializerOptions
 			{
@@ -42,7 +40,7 @@ namespace RaccoonLibrary.Ordering.Middlewares
 
 			string errorMessage = JsonSerializer.Serialize(new { Message = message }, options);
 
-			await responce.WriteAsJsonAsync(errorMessage);
+			await response.WriteAsJsonAsync(errorMessage);
 		}
 	}
 }

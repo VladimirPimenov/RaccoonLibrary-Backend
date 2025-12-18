@@ -109,6 +109,23 @@
       }
     },
     {
+      "UpstreamPathTemplate": "/reader/{readerId}/books/{bookId}",
+      "UpstreamHttpMethod": [ "GET" ],
+
+      "DownstreamPathTemplate": "/{readerId}/books/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5022
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
       "UpstreamPathTemplate": "/reader/addbook",
       "UpstreamHttpMethod": [ "POST" ],
 

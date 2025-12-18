@@ -1,4 +1,5 @@
-﻿using RaccoonLibrary.Ordering.Domain.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using RaccoonLibrary.Ordering.Domain.Contracts;
 using RaccoonLibrary.Ordering.Domain.Entities;
 using RaccoonLibrary.Ordering.Domain.Enums;
 using RaccoonLibrary.Ordering.Domain.Repositories;
@@ -7,6 +8,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 {
 	public class OrderingService(
 		IOrderRepository orderRepository,
+		ICustomerLibraryApiClient customerLibraryСlient,
 		IBookshelfApiClient bookshelfApi)
 		: IOrderingService
 	{
@@ -22,10 +24,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			if(order == null)
 				order = await orderRepository.AddOrderAsync(new Order { CustomerId = customerId });
 
-			order.OrderPrice += book.Price;
-			await orderRepository.UpdateOrderAsync(order);
-
-			await orderRepository.AddBookToOrderAsync(book.BookId, order.OrderId);
+			await AddBookToOrderIfNotInLibrary(book, order);
 
 			return order;
 		}
@@ -81,6 +80,19 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 
 			if (booksInOrder == 0)
 				await RemoveOrderAsync(order);
+		}
+
+		private async Task AddBookToOrderIfNotInLibrary(Book book, Order order)
+		{
+			bool isBookInCustomerLibrary = await customerLibraryСlient.IsBookAlreadyInCustomerLibrary(book, order.CustomerId);
+
+			if (isBookInCustomerLibrary)
+				throw new DbUpdateException("Книга уже куплена");
+
+			order.OrderPrice += book.Price;
+			await orderRepository.UpdateOrderAsync(order);
+
+			await orderRepository.AddBookToOrderAsync(book.BookId, order.OrderId);
 		}
 	}
 }

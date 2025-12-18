@@ -6,10 +6,10 @@ using RaccoonLibrary.ReaderLibrary.Domain.Repositories;
 
 namespace RaccoonLibrary.ReaderLibrary.Domain.Services
 {
-	public class ReaderBooksService(
+	public class LibraryService(
 		IReaderBooksRepository booksRepository,
-		IBookshelfService bookshelfService) 
-		: IReaderBooksService
+		IBookshelfApiClient bookshelfService) 
+		: ILibraryService
 	{
 		public async Task<List<Book>> GetReaderBooksAsync(int readerId)
 		{
@@ -39,6 +39,11 @@ namespace RaccoonLibrary.ReaderLibrary.Domain.Services
 			var addedBook = await booksRepository.AddReaderBookAsync(addingBook);
 
 			return addedBook;
+		}
+
+		public async Task<bool> IsBookInReaderLibraryAsync(int bookId, int readerId)
+		{
+			return await booksRepository.IsBookInReaderLibraryAsync(bookId, readerId);
 		}
 	}
 }

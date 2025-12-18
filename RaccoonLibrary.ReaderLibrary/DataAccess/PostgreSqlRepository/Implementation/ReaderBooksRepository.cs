@@ -24,5 +24,13 @@ namespace RaccoonLibrary.ReaderLibrary.DataAccess.PostgreSqlRepository.Implement
 
 			return readerBook;
 		}
+
+		public async Task<bool> IsBookInReaderLibraryAsync(int bookId, int readerId)
+		{
+			var book =  await context.ReaderBook.FirstOrDefaultAsync(b =>
+								b.BookId == bookId && b.ReaderId == readerId);
+
+			return book == null ? false : true;
+		}
 	}
 }

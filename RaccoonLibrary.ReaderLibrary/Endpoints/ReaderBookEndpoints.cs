@@ -10,12 +10,13 @@ namespace RaccoonLibrary.ReaderLibrary.Endpoints
 		public static void MapReaderBookEndpoints(this IEndpointRouteBuilder app)
 		{
 			app.MapGet("{readerId}/books", GetReaderBooksAsync);
+			app.MapGet("{readerId}/books/{bookId}", IsBookInReaderLibrary);
 			app.MapPost("", AddBookToReaderAsync);
 		}
 
 		private static async Task<IResult> GetReaderBooksAsync(
 			[FromRoute] int readerId,
-			[FromServices] IReaderBooksService booksService)
+			[FromServices] ILibraryService booksService)
 		{
 			var books = await booksService.GetReaderBooksAsync(readerId);
 
@@ -24,11 +25,21 @@ namespace RaccoonLibrary.ReaderLibrary.Endpoints
 
 		private static async Task<IResult> AddBookToReaderAsync(
 			[FromBody] BookAddingRequest request,
-			[FromServices] IReaderBooksService booksService)
+			[FromServices] ILibraryService booksService)
 		{
 			var addedBook = await booksService.AddBookToReaderAsync(request);
 
 			return addedBook == null ? Results.BadRequest() : Results.Ok(addedBook);
+		}
+
+		private static async Task<IResult> IsBookInReaderLibrary(
+			[FromRoute] int readerId, 
+			[FromRoute] int bookId, 
+			[FromServices] ILibraryService booksService)
+		{
+			bool isBookInLibrary = await booksService.IsBookInReaderLibraryAsync(bookId, readerId);
+
+			return isBookInLibrary ? Results.Ok() : Results.NotFound();
 		}
 	}
 }

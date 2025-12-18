@@ -10,6 +10,8 @@ using RaccoonLibrary.ReaderLibrary.Domain.Services;
 using RaccoonLibrary.ReaderLibrary.Endpoints;
 using RaccoonLibrary.ReaderLibrary;
 
+using RaccoonLibrary.ReaderLibrary.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
@@ -19,10 +21,12 @@ builder.Services.AddScoped<IReaderBooksRepository, ReaderBooksRepository>();
 
 builder.Services.AddHttpClient();
 
-builder.Services.AddScoped<IReaderBooksService, ReaderBooksService>();
-builder.Services.AddScoped<IBookshelfService, BookshelfService>();
+builder.Services.AddScoped<ILibraryService, LibraryService>();
+builder.Services.AddScoped<IBookshelfApiClient, BookshelfApiClient>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -7,5 +7,7 @@ namespace RaccoonLibrary.ReaderLibrary.Domain.Repositories
 		public Task<List<int>> GetBooksIdByReaderIdAsync(int readerId);
 
 		public Task<ReaderBook> AddReaderBookAsync(ReaderBook readerBook);
+
+		public Task<bool> IsBookInReaderLibraryAsync(int bookId, int readerId);
 	}
 }

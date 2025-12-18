@@ -47,34 +47,5 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 
 			return order;
 		}
-		
-		//public async Task<bool> CloseOrderAsync(Order order)
-		//{
-		//	bool result =  await customerLibraryСlient.AddOrderedBooksToCustomerAsync(order);
-
-		//	if(!result)
-		//		return false;
-
-		//	await orderService.RemoveOrderAsync(order);
-		//	return true;
-		//}
-
-		//public async Task<Order> RequestOrderPaymentAsync(CustomerPaymentRequest orderRequest)
-		//{
-		//	var order = await orderService.GetCustomerOrderAsync(orderRequest.CustomerId);
-
-		//	if (order == null)
-		//		return null;
-
-		//	var request = new PaymentServiceRequest
-		//	{
-		//		BankCardNumber = orderRequest.BankCardNumber,
-		//		PaymentSum = order.OrderPrice
-		//	};
-
-		//	var responce = await paymentClient.PayOrderAsync(request);
-
-		//	return responce == null ? null : order;
-		//}
 	}
 }
