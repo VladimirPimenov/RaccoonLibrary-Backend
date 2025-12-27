@@ -2,8 +2,8 @@
 
 namespace RaccoonLibrary.Bookshelf.Domain.Repositories
 {
-	public interface IAuthorRepository
+	public interface IGenreRepository
 	{
-		public Task<Author> GetAuthorByIdAsync(int id);
+		public Task<Genre> GetGenreByIdAsync(int id);
 	}
 }

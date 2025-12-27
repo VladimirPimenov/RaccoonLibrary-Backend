@@ -4,6 +4,6 @@ namespace RaccoonLibrary.Bookshelf.Domain.Contracts
 {
 	public interface IAuthorQueryService
 	{
-		public Task<Author> GetAuthor(int authorId);
+		public Task<Author> GetAuthorAsync(int authorId);
 	}
 }

@@ -15,11 +15,10 @@ builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL:DefaultConnection"));
 });
 
-builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
-builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IBookQueryService, BookQueryService>();
 builder.Services.AddScoped<IAuthorQueryService, AuthorQueryService>();
 
@@ -29,6 +28,5 @@ app.UseHttpsRedirection();
 
 app.MapAuthorEndpoints();
 app.MapBookEndpoints();
-app.MapSearchEndpoints();
 
 app.Run();

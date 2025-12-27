@@ -15,7 +15,7 @@ namespace RaccoonLibrary.Bookshelf.Endpoints
 			[FromRoute] int authorId,
 			[FromServices] IAuthorQueryService authorService)
 		{
-			var author = await authorService.GetAuthor(authorId);
+			var author = await authorService.GetAuthorAsync(authorId);
 
 			return author == null ? Results.NotFound() : Results.Ok(author);
 		}

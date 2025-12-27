@@ -8,9 +8,9 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 		IAuthorRepository authorRepository) 
 		: IAuthorQueryService
 	{
-		public async Task<Author> GetAuthor(int authorId)
+		public async Task<Author> GetAuthorAsync(int authorId)
 		{
-			return await authorRepository.GetAuthorById(authorId);
+			return await authorRepository.GetAuthorByIdAsync(authorId);
 		}
 	}
 }

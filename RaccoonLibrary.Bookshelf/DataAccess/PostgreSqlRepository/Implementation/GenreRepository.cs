@@ -3,13 +3,13 @@ using RaccoonLibrary.Bookshelf.Domain.Repositories;
 
 namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementation
 {
-	public class AuthorRepository(
+	public class GenreRepository(
 		PostgreSqlDbContext context)
-		: IAuthorRepository
+		: IGenreRepository
 	{
-		public async Task<Author> GetAuthorByIdAsync(int id)
+		public async Task<Genre> GetGenreByIdAsync(int id)
 		{
-			return await context.Author.FindAsync(id);
+			return await context.Genre.FindAsync(id);
 		}
 	}
 }
