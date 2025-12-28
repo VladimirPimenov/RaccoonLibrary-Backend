@@ -2,11 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 using RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository;
 using RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementation;
+using RaccoonLibrary.Bookshelf.Domain.Repositories;
 
 using RaccoonLibrary.Bookshelf.Domain.Contracts;
-using RaccoonLibrary.Bookshelf.Domain.Repositories;
 using RaccoonLibrary.Bookshelf.Domain.Services;
+
 using RaccoonLibrary.Bookshelf.Endpoints;
+
+using RaccoonLibrary.Bookshelf.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,8 @@ builder.Services.AddScoped<IBookQueryService, BookQueryService>();
 builder.Services.AddScoped<IAuthorQueryService, AuthorQueryService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
