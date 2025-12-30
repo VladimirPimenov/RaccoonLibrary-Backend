@@ -20,28 +20,17 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementatio
 
 		public async Task<Book> CreateBookAsync(Book book)
 		{
+			foreach(Author author in book.Authors)
+			{
+				context.Entry(author).State = EntityState.Unchanged;
+			}
+
+			foreach (Genre genre in book.Genres)
+			{
+				context.Entry(genre).State = EntityState.Unchanged;
+			}
+
 			context.Book.Add(book);
-
-			foreach(var author in book.Authors)
-			{
-				await AddBookAuthorAsync(
-					new BookAuthor
-					{
-						BookId = book.BookId,
-						AuthorId = author.AuthorId
-					});
-			}
-
-			foreach (var genre in book.Genres)
-			{
-				await AddBookGenreAsync(
-					new BookGenre
-					{
-						BookId = book.BookId,
-						GenreId = genre.GenreId
-					});
-			}
-
 			await context.SaveChangesAsync();
 
 			return book;
@@ -49,26 +38,6 @@ namespace RaccoonLibrary.Bookshelf.DataAccess.PostgreSqlRepository.Implementatio
 
 		public async Task<int> RemoveBookAsync(Book book)
 		{
-			foreach (var author in book.Authors)
-			{
-				await RemoveBookAuthorAsync(
-					new BookAuthor
-					{
-						BookId = book.BookId,
-						AuthorId = author.AuthorId
-					});
-			}
-
-			foreach (var genre in book.Genres)
-			{
-				await RemoveBookGenreAsync(
-					new BookGenre
-					{
-						BookId = book.BookId,
-						GenreId = genre.GenreId
-					});
-			}
-
 			context.Remove(book);
 
 			await context.SaveChangesAsync();

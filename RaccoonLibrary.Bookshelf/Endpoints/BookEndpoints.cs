@@ -10,6 +10,7 @@ namespace RaccoonLibrary.Bookshelf.Endpoints
 		public static void MapBookEndpoints(this IEndpointRouteBuilder app)
 		{
 			app.MapGet("/book/{bookId}", GetBookAsync);
+			app.MapPost("/book", CreateBookAsync);
 			app.MapDelete("/book/{bookId}", RemoveBookAsync);
 
 			app.MapPost("/book/author", AddAuthorToBookAsync);
@@ -26,6 +27,16 @@ namespace RaccoonLibrary.Bookshelf.Endpoints
 			var book = await bookService.GetBookAsync(bookId);
 
 			return book == null ? Results.NotFound() : Results.Ok(book);
+		}
+
+		private static async Task<IResult> CreateBookAsync(
+			[FromBody] Book book,
+			[FromServices] IBookQueryService bookService
+			)
+		{
+			Book newBook = await bookService.CreateBookAsync(book);
+
+			return newBook == null ? Results.BadRequest() : Results.Ok(book);
 		}
 
 		private static async Task<IResult> RemoveBookAsync(

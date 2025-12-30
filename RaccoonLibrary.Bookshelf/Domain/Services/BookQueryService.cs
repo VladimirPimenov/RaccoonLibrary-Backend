@@ -17,9 +17,20 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 			return await bookRepository.GetBookByIdAsync(bookId);
 		}
 
-		public Task<Book> CreateBookAsync(Book book)
+		public async Task<Book> CreateBookAsync(Book book)
 		{
-			throw new NotImplementedException();
+			if (book == null)
+				return null;
+
+			if (book.Authors.Count == 0)
+				throw new Exception("Не указан автор");
+
+			if (book.Genres.Count == 0)
+				throw new Exception("Не указан жанр");
+
+			Book addedBook = await bookRepository.CreateBookAsync(book);
+
+			return addedBook;
 		}
 
 		public async Task<int?> RemoveBookAsync(int bookId)
