@@ -24,6 +24,7 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 builder.Services.AddScoped<IBookQueryService, BookQueryService>();
 builder.Services.AddScoped<IAuthorQueryService, AuthorQueryService>();
+builder.Services.AddScoped<IGenreQueryService, GenreQueryService>();
 
 var app = builder.Build();
 
@@ -32,6 +33,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.MapAuthorEndpoints();
+app.MapGenreEndpoints();
 app.MapBookEndpoints();
 
 app.Run();

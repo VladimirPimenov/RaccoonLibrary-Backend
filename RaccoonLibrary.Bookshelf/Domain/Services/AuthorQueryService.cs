@@ -12,5 +12,24 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 		{
 			return await authorRepository.GetAuthorByIdAsync(authorId);
 		}
+
+		public async Task<Author> CreateAuthorAsync(Author author)
+		{
+			Author newAuthor = await authorRepository.CreateAuthorAsync(author);
+
+			return newAuthor;
+		}
+
+		public async Task<int?> RemoveAuthorAsync(int authorId)
+		{
+			Author author = await authorRepository.GetAuthorByIdAsync(authorId);
+
+			if (author == null)
+				return null;
+
+			int removedAuthorId = await authorRepository.RemoveAuthorAsync(author);
+
+			return removedAuthorId;
+		}
 	}
 }

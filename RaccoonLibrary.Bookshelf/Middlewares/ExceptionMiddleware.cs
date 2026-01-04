@@ -19,7 +19,7 @@ namespace RaccoonLibrary.Bookshelf.Middlewares
 			}
 			catch(Exception ex)
 			{
-				await HandleException(httpContext, HttpStatusCode.InternalServerError, "Произошла непредвиденная ошибка");
+				await HandleException(httpContext, HttpStatusCode.InternalServerError, "Произошла непредвиденная ошибка: " + ex.Message);
 			}
 		}
 

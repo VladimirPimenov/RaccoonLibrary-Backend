@@ -53,6 +53,84 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/book",
+      "UpstreamHttpMethod": [ "POST" ],
+
+      "DownstreamPathTemplate": "/book",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/book/{bookId}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+
+      "DownstreamPathTemplate": "/book/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/book/author",
+      "UpstreamHttpMethod": [ "POST" ],
+
+      "DownstreamPathTemplate": "/book/author",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/book/author",
+      "UpstreamHttpMethod": [ "DELETE" ],
+
+      "DownstreamPathTemplate": "/book/author",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/book/genre",
+      "UpstreamHttpMethod": [ "POST" ],
+
+      "DownstreamPathTemplate": "/book/genre",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/book/genre",
+      "UpstreamHttpMethod": [ "DELETE" ],
+
+      "DownstreamPathTemplate": "/book/genre",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/author/{authorId}",
       "UpstreamHttpMethod": [ "GET" ],
 
@@ -66,10 +144,10 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/books?q={query}",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamPathTemplate": "/author",
+      "UpstreamHttpMethod": [ "POST" ],
 
-      "DownstreamPathTemplate": "/search/books?query={query}",
+      "DownstreamPathTemplate": "/author",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -79,10 +157,36 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/authors?q={query}",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamPathTemplate": "/author/{authorId}",
+      "UpstreamHttpMethod": [ "DELETE" ],
 
-      "DownstreamPathTemplate": "/search/authors?query={query}",
+      "DownstreamPathTemplate": "/author/{authorId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/genre",
+      "UpstreamHttpMethod": [ "POST" ],
+
+      "DownstreamPathTemplate": "/genre",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/genre/{genreId}",
+      "UpstreamHttpMethod": [ "DELETE" ],
+
+      "DownstreamPathTemplate": "/genre/{genreId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

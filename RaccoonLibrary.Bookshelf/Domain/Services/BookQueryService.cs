@@ -40,9 +40,9 @@ namespace RaccoonLibrary.Bookshelf.Domain.Services
 			if (book == null)
 				return null;
 
-			await bookRepository.RemoveBookAsync(book);
+			int removedBookId = await bookRepository.RemoveBookAsync(book);
 
-			return bookId;
+			return removedBookId;
 		}
 
 		public async Task<Book> AddAuthorToBookAsync(BookAuthor bookAuthor)
