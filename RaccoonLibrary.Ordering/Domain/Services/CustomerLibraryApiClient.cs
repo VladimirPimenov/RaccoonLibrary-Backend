@@ -10,23 +10,27 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		IConfiguration config)
 		: ICustomerLibraryApiClient
 	{
-		private readonly string libraryApiAddress = config.GetValue<string>("ServiceConnections:LibraryService");
+		private readonly string _libraryApiAddress = config.GetValue<string>("ServiceConnections:LibraryService");
 
-		public async Task<bool> AddOrderedBooksToCustomerAsync(Order order)
+		public async Task<bool> AddBookToCustomerAsync(Book book, int customerId)
 		{
-			foreach(var book in order.OrderedBooks)
+			var content = new BookAddingRequest
 			{
-				bool isBookAdded = await AddBookToCustomerAsync(book.BookId, order.CustomerId);
+				BookId = book.BookId,
+				ReaderId = customerId
+			};
 
-				if(!isBookAdded)
-					return false;
-			}
+			HttpClient httpClient = httpClientFactory.CreateClient();
+			using HttpResponseMessage response = await httpClient.PostAsJsonAsync(_libraryApiAddress, content);
+
+			if (response.StatusCode != System.Net.HttpStatusCode.OK)
+				return false;
 			return true;
 		}
 
 		public async Task<bool> IsBookAlreadyInCustomerLibrary(Book book, int customerId)
 		{
-			string requestString = $"{libraryApiAddress}/{customerId}/books/{book.BookId}";
+			string requestString = $"{_libraryApiAddress}/{customerId}/books/{book.BookId}";
 
 			HttpClient httpClient = httpClientFactory.CreateClient();
 			using HttpResponseMessage response = await httpClient.GetAsync(requestString);
@@ -34,22 +38,6 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			if (response.StatusCode == System.Net.HttpStatusCode.OK)
 				return true;
 			return false;
-		}
-
-		private async Task<bool> AddBookToCustomerAsync(int bookId, int customerId)
-		{
-			var content = new BookAddingRequest
-			{
-				BookId = bookId,
-				ReaderId = customerId
-			};
-
-			HttpClient httpClient = httpClientFactory.CreateClient();
-			using HttpResponseMessage response = await httpClient.PostAsJsonAsync(libraryApiAddress, content);
-
-			if (response.StatusCode != System.Net.HttpStatusCode.OK)
-				return false;
-			return true;
 		}
 	}
 }

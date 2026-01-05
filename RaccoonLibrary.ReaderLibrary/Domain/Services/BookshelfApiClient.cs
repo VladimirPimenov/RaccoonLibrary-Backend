@@ -8,11 +8,11 @@ namespace RaccoonLibrary.ReaderLibrary.Domain.Services
 		IConfiguration config) 
 		: IBookshelfApiClient
 	{
-		private readonly string bookshelfApiAddress = config.GetValue<string>("ServiceConnections:BookshelfService");
+		private readonly string _bookshelfApiAddress = config.GetValue<string>("ServiceConnections:BookshelfService");
 
 		public async Task<Book> GetBookByIdAsync(int id)
 		{
-			string requestString = $"{bookshelfApiAddress}/book/{id}";
+			string requestString = $"{_bookshelfApiAddress}/book/{id}";
 
 			HttpClient httpClient = httpClientFactory.CreateClient();
 			using HttpResponseMessage responce = await httpClient.GetAsync(requestString);

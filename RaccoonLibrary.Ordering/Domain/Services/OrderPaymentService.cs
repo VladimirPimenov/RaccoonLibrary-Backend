@@ -1,4 +1,4 @@
-﻿using RaccoonLibrary.Ordering.Domain.Contracts;
+using RaccoonLibrary.Ordering.Domain.Contracts;
 using RaccoonLibrary.Ordering.Domain.DTO;
 using RaccoonLibrary.Ordering.Domain.Entities;
 using RaccoonLibrary.Ordering.Domain.Enums;
@@ -38,7 +38,7 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 				order.Status = OrderStatus.Completed;
 				order.PayDate = DateTime.Now.ToUniversalTime();
 
-				customerLibraryСlient.AddOrderedBooksToCustomerAsync(order);
+				await AddOrderedBooksToCustomerAsync(order);
 			}
 			else
 				order.Status = OrderStatus.Failed;
@@ -46,6 +46,14 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			order = await orderService.UpdateOrder(order);
 
 			return order;
+		}
+
+		private async Task AddOrderedBooksToCustomerAsync(Order order)
+		{
+			foreach(Book book in order.OrderedBooks)
+			{
+				await customerLibraryСlient.AddBookToCustomerAsync(book, order.CustomerId);
+			}
 		}
 	}
 }

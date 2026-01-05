@@ -71,7 +71,11 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		{
 			var bookIds = await orderRepository.GetOrderBookIdsAsync(order.OrderId);
 
-			return await bookshelfApi.GetBookListByIdsAsync(bookIds);
+			var bookTasks = bookIds.Select(bookshelfApi.GetBookByIdAsync);
+
+			var books = await Task.WhenAll(bookTasks);
+
+			return books.ToList();
 		}
 
 		private async Task RemoveOrderIfNoBooks(Order order)

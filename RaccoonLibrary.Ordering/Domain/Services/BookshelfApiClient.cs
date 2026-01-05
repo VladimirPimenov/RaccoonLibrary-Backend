@@ -8,11 +8,11 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 		IConfiguration config)
 		: IBookshelfApiClient
 	{
-		private readonly string bookshelfApiAddress = config.GetValue<string>("ServiceConnections:BookshelfService");
+		private readonly string _bookshelfApiAddress = config.GetValue<string>("ServiceConnections:BookshelfService");
 
 		public async Task<Book> GetBookByIdAsync(int id)
 		{
-			string requestString = $"{bookshelfApiAddress}/book/{id}";
+			string requestString = $"{_bookshelfApiAddress}/book/{id}";
 
 			HttpClient httpClient = httpClientFactory.CreateClient();
 			using HttpResponseMessage responce = await httpClient.GetAsync(requestString);
@@ -23,21 +23,6 @@ namespace RaccoonLibrary.Ordering.Domain.Services
 			Book book = await responce.Content.ReadFromJsonAsync<Book>();
 
 			return book;
-		}
-
-		public async Task<List<Book>> GetBookListByIdsAsync(List<int> ids)
-		{
-			var books = new List<Book>();
-
-			foreach(int id in ids)
-			{
-				var book = await GetBookByIdAsync(id);
-
-				if(book != null)
-					books.Add(book);
-			}
-
-			return books;
 		}
 	}
 }

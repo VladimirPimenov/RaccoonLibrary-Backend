@@ -1,4 +1,4 @@
-﻿using RaccoonLibrary.ReaderLibrary.Domain.DTO;
+using RaccoonLibrary.ReaderLibrary.Domain.DTO;
 using RaccoonLibrary.ReaderLibrary.Domain.Entities;
 
 using RaccoonLibrary.ReaderLibrary.Domain.Contracts;
@@ -15,17 +15,11 @@ namespace RaccoonLibrary.ReaderLibrary.Domain.Services
 		{
 			var bookIds = await booksRepository.GetBooksIdByReaderIdAsync(readerId);
 
-			var books = new List<Book>();
+			var bookTasks = bookIds.Select(bookshelfService.GetBookByIdAsync);
 
-			foreach (var bookId in bookIds)
-			{
-				var book = await bookshelfService.GetBookByIdAsync(bookId);
-
-				if(book != null)
-					books.Add(book);
-			}
+			var books = await Task.WhenAll(bookTasks);
 			
-			return books;
+			return books.ToList();
 		}
 
 		public async Task<ReaderBook> AddBookToReaderAsync(BookAddingRequest request)
