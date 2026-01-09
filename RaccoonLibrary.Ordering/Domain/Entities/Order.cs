@@ -15,7 +15,6 @@ namespace RaccoonLibrary.Ordering.Domain.Entities
 
 		public DateTime? PayDate { get; set; } = null;
 
-		[NotMapped]
 		public List<Book> OrderedBooks { get; set; }
 	}
 }

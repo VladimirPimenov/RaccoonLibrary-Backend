@@ -11,5 +11,10 @@ namespace RaccoonLibrary.Ordering.DataAccess.PostgreSqlRepository
 
 		public PostgreSqlDbContext(DbContextOptions<PostgreSqlDbContext> options)
 			: base(options) { }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Order>().Ignore(order => order.OrderedBooks);
+		}
 	}
 }
